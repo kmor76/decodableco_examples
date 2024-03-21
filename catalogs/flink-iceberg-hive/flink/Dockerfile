@@ -7,6 +7,9 @@ COPY conf/hive-site.xml ./conf/hive-site.xml
 # Pre-seed the SQL history because I'm nice like that
 COPY flink-sql-history /root/.flink-sql-history
 
+RUN wget -P /opt/flink/lib https://repo1.maven.org/maven2/com/ververica/flink-sql-connector-postgres-cdc/2.3.0/flink-sql-connector-postgres-cdc-2.3.0.jar
+RUN wget -P /opt/flink/lib https://repo1.maven.org/maven2/org/apache/flink/flink-sql-connector-kafka/3.1.0-1.18/flink-sql-connector-kafka-3.1.0-1.18.jar
+
 # Enable SQL Client to find the job manager when running it from this image
 RUN sed -i "s/jobmanager.rpc.address: localhost/jobmanager.rpc.address: flink-jobmanager/g" ./conf/flink-conf.yaml
 
